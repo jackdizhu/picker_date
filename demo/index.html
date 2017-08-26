@@ -13,8 +13,8 @@
     font-size: 20px;
     text-align: center;
   }
-  #packerDateId2 ,
-  #packerDateId {
+  #pickerDateId2 ,
+  #pickerDateId {
     width: 80%;
     height: 50px;
     border: 1px solid #ccc;
@@ -27,11 +27,40 @@
 </style>
 <body>
   <h3>Picker</h3>
-  <div id="packerDateId">选择城市</div>
-  <div id="packerDateId2">选择城市</div>
+  <div id="pickerDateId">选择城市</div>
+  <div id="pickerDateId2">选择城市</div>
   <script src="../dist/picker.min.js"></script>
-  <script src="calendar.js"></script>
-  <script src="chinese-lunar.js"></script>
-  <script src="index.js"></script>
+  <script src="../dist/calendar.js"></script>
+  <script src="../dist/picker_date.js"></script>
+  <script type="text/javascript">
+    pickerDate({
+      _min: [1901,1,1], //最小日期
+      _max: [1911,11,11], // 最大日期
+      el: 'pickerDateId', // DOM ID
+      /*  // 回调参数
+      c:{
+            leapMonth:0, // 闰月 月份 没有 为0 如果有 月份最大 13
+            name:"农历"
+            value:[1910,10,9]
+        },
+        l:{
+            name:"阳历"
+            value:[1910,11,10]
+        }
+      }
+      */
+      callback: function (_d){
+        console.log(_d);
+      }
+    });
+    pickerDate({
+      _min: [1901,1,1],
+      _max: [1910,11,10],
+      el: 'pickerDateId2',
+      callback: function (_d){
+        console.log(_d);
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,7 +1,10 @@
 (function () {
+
+
     // 依赖插件 chinese-lunar.js  或 calendar.js
     // var lunar = window.Lunar;
     var lunar = window.calendar;
+    // var lunar = require('./date/calendar.js');
     var _Lunar = {
       // 获取闰月
       leapMonth: lunar.leapMonth,
@@ -38,9 +41,9 @@
           _cm = _d.lMonth;
         }
         return [_d.lYear,_cm,_d.lDay];
-      }, 
+      },
     };
-    var packerDate = function (opt){
+    var pickerDate = function (opt){
         var _opt = {
           _min: opt._min || [1900,1,31],
           _max: opt._max || [1909,11,11],
@@ -124,7 +127,7 @@
               }else{
                 _i = _min[1]-1;
               }
-              
+
               var data = [];
               var __obj = {},j;
               for (var i = _i; i < _M; i++) {
@@ -319,7 +322,7 @@
             // 获取选中val 值
             var str = JSON.stringify(_this.data);
             var _selectedVal = get_selectedVal(_this.selectedIndex,str);
-            
+
             // 选中年份
             if(selectedVal[0] != _selectedVal[0]){
               var _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
@@ -337,7 +340,7 @@
                 picker.refillColumn(2, _data3);
                 picker.scrollColumn(2, 0);
             }
-            
+
             selectedVal = _selectedVal;
         }
         // 点击阳历 农历切换 触发
@@ -345,7 +348,7 @@
             // 获取选中val 值
             var str = JSON.stringify(_this.data);
             var _selectedVal = get_selectedVal(_this.selectedIndex,str);
-            // 更新数据 
+            // 更新数据
             update_Date(fn);
 
         }
@@ -436,6 +439,7 @@
               // 农历
               _d.c = {
                 name: '农历',
+                rawData: true,
                 value: this.selectedVal,
                 leapMonth:  _Lunar.leapMonth(this.selectedVal[0])
               };
@@ -454,6 +458,7 @@
               };
               _d.l = {
                 name: '阳历',
+                rawData: true,
                 value: this.selectedVal
               };
             }
@@ -463,34 +468,6 @@
 
         return picker;
     }
-    window.packerDate = packerDate;
-})();
+    window.pickerDate = pickerDate;
 
-packerDate({
-  _min: [1901,1,1], //最小日期
-  _max: [1911,11,11], // 最大日期
-  el: 'packerDateId', // DOM ID
-  /*  // 回调参数
-  c:{
-        leapMonth:0, // 闰月 月份 没有 为0 如果有 月份最大 13
-        name:"农历"
-        value:[1910,10,9]
-    },
-    l:{
-        name:"阳历"
-        value:[1910,11,10]
-    }
-  }
-  */
-  callback: function (_d){
-    console.log(_d);
-  }
-});
-packerDate({
-  _min: [1901,1,1],
-  _max: [1910,11,10],
-  el: 'packerDateId2',
-  callback: function (_d){
-    console.log(_d);
-  }
-});
+})();
