@@ -220,18 +220,23 @@
               var _is = _Lunar.leapMonth(_Y);
 
               var data = [];
-              var __obj = {},j = _i;
+              var __obj = {},j = _i,k;
               for (var i = _i; i < _M; i++) {
                 j = j + 1;
+                if(_is && (j > _is)){
+                    k = j - 1;
+                }else{
+                  k = j;
+                }
                 __obj = {
-                  text: ''+j+'月',
+                  text: ''+k+'月',
                   value: j
                 };
                 data.push(__obj);
                 if(_is && j == _is){
                     j++;
                     __obj = {
-                        text: '闰'+'月',
+                        text: '闰'+ k +'月',
                         value: j
                     };
                     data.push(__obj);
@@ -434,7 +439,6 @@
 
             var _d = {};
             var __;
-
             if(isLunarDate){
               // 农历
               _d.c = {
