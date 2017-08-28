@@ -144,6 +144,7 @@
               var _D = this.fn_maxD(_Y,_M);
               var _i =  0;
               if(picker){
+                  console.log(_M,_max[1]);
                   if(_Y == _max[0] && _M == _max[1]){
                     _D = _max[2];
                   }
@@ -333,16 +334,33 @@
               var _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
               // 替换列数据
               picker.refillColumn(1, _data2);
+              // 选中值 大于 数据长度
+              if(_selectedVal[1] > picker.data[1].length){
+                  picker.scrollColumn(1, picker.data[1].length - 1);
+                  picker.selectedIndex[1] = picker.data[1].length - 1;
+                  // 重新获取 选中值
+                  _selectedVal = get_selectedVal(_this.selectedIndex,str);
+              }
               // picker.scrollColumn(1, 0);
 
               var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
               // 替换列数据
               picker.refillColumn(2, _data3);
+              // 选中值 大于 数据长度
+              if(_selectedVal[2] > picker.data[2].length){
+                  picker.scrollColumn(2, picker.data[2].length - 1);
+                  picker.selectedIndex[2] = picker.data[2].length - 1;
+              }
               // picker.scrollColumn(2, 0);
             }else if(selectedVal[1] != _selectedVal[1]){
                 var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
                 // 替换列数据
                 picker.refillColumn(2, _data3);
+                // 选中值 大于 数据长度
+                if(_selectedVal[2] > picker.data[2].length){
+                    picker.scrollColumn(2, picker.data[2].length - 1);
+                    picker.selectedIndex[2] = picker.data[2].length - 1;
+                }
                 // picker.scrollColumn(2, 0);
             }
 
