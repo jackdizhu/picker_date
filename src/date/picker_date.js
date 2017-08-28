@@ -333,17 +333,17 @@
               var _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
               // 替换列数据
               picker.refillColumn(1, _data2);
-              picker.scrollColumn(1, 0);
+              // picker.scrollColumn(1, 0);
 
               var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
               // 替换列数据
               picker.refillColumn(2, _data3);
-              picker.scrollColumn(2, 0);
+              // picker.scrollColumn(2, 0);
             }else if(selectedVal[1] != _selectedVal[1]){
                 var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
                 // 替换列数据
                 picker.refillColumn(2, _data3);
-                picker.scrollColumn(2, 0);
+                // picker.scrollColumn(2, 0);
             }
 
             selectedVal = _selectedVal;

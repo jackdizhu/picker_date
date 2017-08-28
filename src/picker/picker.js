@@ -87,8 +87,11 @@ export default class Picker extends EventEmitter {
     });
 
     addEvent(this.cancelEl, 'click', () => {
-      this.hide();
+      // this.hide();
       this.trigger('picker.cancel');
+    });
+    addEvent(this.maskEl, 'click', () => {
+      this.hide();
     });
   }
 
