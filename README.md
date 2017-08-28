@@ -11,11 +11,12 @@ packerDate({
   /*  // 回调参数
   c:{
         leapMonth:0, // 闰月 月份 没有 为0 如果有 月份最大 13
-        name:"农历"
+        name:"农历",
+        rawData: true, // true 表示 农历是选中值 阳历是 计算值 [防止计算错误 校验字段]
         value:[1910,10,9]
     },
     l:{
-        name:"阳历"
+        name:"阳历",
         value:[1910,11,10]
     }
   }
