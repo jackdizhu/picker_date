@@ -55,6 +55,15 @@
       }
       */
       callback: function (_d){
+        var str = '农历:' + _d.c.value.join('-');
+        var str2 = '阳历:' + _d.l.value.join('-');
+        var _str = '';
+        if(_d.c.rawData){
+          _str = str;
+        }else{
+          _str = str2;
+        }
+        document.getElementById('pickerDateId').innerHTML = _str;
         console.log(_d);
       }
     });
@@ -64,6 +73,14 @@
       _max: [1910,9,9],
       el: 'pickerDateId2',
       callback: function (_d){
+        var str = '农历:' + _d.c.value.join('-');
+        var str2 = '阳历:' + _d.l.value.join('-');
+        if(_d.c.rawData){
+          _str = str;
+        }else{
+          _str = str2;
+        }
+        document.getElementById('pickerDateId2').innerHTML = _str;
         console.log(_d);
       }
     });
