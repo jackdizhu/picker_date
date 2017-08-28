@@ -98,6 +98,21 @@
             value: 3
           }
         ];
+        // 时
+        var data4 = [
+          // {
+          //   text: '0时',
+          //   value: 0
+          // },
+          // {
+          //   text: '1时',
+          //   value: 1
+          // },
+          // {
+          //   text: '2时',
+          //   value: 2
+          // }
+        ];
 
         // 阳历数据 年月日
         var _D = {
@@ -280,18 +295,35 @@
                 return _Lunar.lunarMonthDays(_Y,_M);
             }
         };
-
+        // 生成小时数据
+        function fn_getTArr(max) {
+          // 生成 小时 数据
+          var _data4 = {};
+          var _tmax = max || 24;
+          var data4 = [];
+          for (var i = 0; i < _tmax; i++) {
+              _data4 = {
+                text: i + '时',
+                value: i
+              };
+              data4.push(_data4);
+          }
+          return data4;
+        }
         // 重新生成数据
         function update_Date(fn){
 
             data1 = isLunarDate ? _D2.fn_Y() : _D.fn_Y();
             data2 = isLunarDate ? _D2.fn_M(_min2[0]) : _D.fn_M(_min[0]);
             data3 = isLunarDate ? _D2.fn_D(_min2[0],_min2[1]) : _D.fn_D(_min[0],_min[1]);
+            // 小时数据
+            data4 = fn_getTArr();
 
             if(picker){
                 picker.refillColumn(0, data1);
                 picker.refillColumn(1, data2);
                 picker.refillColumn(2, data3);
+                picker.refillColumn(4, data4);
             }
             if(fn){
               fn();
@@ -300,8 +332,8 @@
         update_Date();
 
         var picker = new Picker({
-          data: [data1, data2, data3],
-          selectedIndex: [0, 0, 0],
+          data: [data1, data2, data3, data4],
+          selectedIndex: [0, 0, 0, 0],
           title: '选择日期'
         });
 
@@ -399,6 +431,7 @@
               _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
               // 替换列数据
               picker.refillColumn(1, _data2);
+              // 设置 月
               set_M();
               // 找到对应数据 停止循环
               break;
@@ -418,6 +451,7 @@
                   _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
                   // 替换列数据
                   picker.refillColumn(2, _data3);
+                  // 设置 日
                   set_D();
                   // 找到对应数据 停止循环
                   break;
@@ -433,12 +467,34 @@
                 if(e3.value == _arr[2]){
                   picker.scrollColumn(2,k);
                   picker.selectedIndex[2] = k;
+                  // 全局变量 保存选中值
+                  selectedVal = get_selectedVal(picker.selectedIndex,str);
+                  // 设置小时
+                  set_T();
                   // 找到对应数据 停止循环
                   break;
                 }
               }
-              // 全局变量 保存选中值
-              selectedVal = get_selectedVal(picker.selectedIndex,str);
+          }
+          function set_T(){
+              var _data = picker.data;
+              var str = JSON.stringify(picker.data);
+              var e3;
+              // 设置 小时默认值
+              if(!_arr[3]){
+                _arr[3] = 0;
+              }
+              for (var k = 0; k < _data[3].length; k++) {
+                e3 = _data[3][k];
+                if(e3.value == _arr[3]){
+                  picker.scrollColumn(3,k);
+                  picker.selectedIndex[3] = k;
+                  // 全局变量 保存选中值
+                  selectedVal = get_selectedVal(picker.selectedIndex,str);
+                  // 找到对应数据 停止循环
+                  break;
+                }
+              }
           }
         }
         picker.on('picker.change',function () {
@@ -487,6 +543,8 @@
                 leapMonth:  _Lunar.leapMonth(this.selectedVal[0])
               };
               __ = _Lunar.toSolar(this.selectedVal[0],this.selectedVal[1],this.selectedVal[2]);
+              // 小时 农历 阳历相等
+              __[3] = this.selectedVal[3];
               _d.l = {
                 name: '阳历',
                 value: __
@@ -494,6 +552,8 @@
             }else{
               // 阳历
               __ = _Lunar.toLunar(this.selectedVal[0],this.selectedVal[1],this.selectedVal[2]);
+              // 小时 农历 阳历相等
+              __[3] = this.selectedVal[3];
               _d.c = {
                 name: '农历',
                 value: __,
