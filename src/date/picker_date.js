@@ -207,24 +207,30 @@
             fn_M: function (_Y) {
               var _i = 0,_M = 12;
               if(picker){
-                  if(_Y == _max[0]){
-                    _M = _max[1];
+                  if(_Y == _max2[0]){
+                    _M = _max2[1];
                   }
-                  if(_Y == _min[0]){
-                    _i = _min[1]-1;
+                  if(_Y == _min2[0]){
+                    _i = _min2[1]-1;
                   }
               }else{
-                _i = _min[1]-1;
+                _i = _min2[1]-1;
               }
               // 获取闰月
               var _is = _Lunar.leapMonth(_Y);
+              // 有闰月 总数 13月
+              if(_is){
+                _M++;
+              }
 
               var data = [];
               var __obj = {},j = _i,k;
               for (var i = _i; i < _M; i++) {
                 j = j + 1;
-                if(_is && (j > _is)){
-                    k = j - 1;
+                // 有闰月 且 月份>=闰月
+                if(_is && (j >= _is)){
+                   k = j - 1;
+                   k = ((j == _is + 1) ? '闰' : '') + k;
                 }else{
                   k = j;
                 }
@@ -233,29 +239,22 @@
                   value: j
                 };
                 data.push(__obj);
-                if(_is && j == _is){
-                    j++;
-                    __obj = {
-                        text: '闰'+ k +'月',
-                        value: j
-                    };
-                    data.push(__obj);
-                }
               }
+              console.log(_Y);
               return data;
             },
             fn_D: function (_Y,_M) {
               var _D = this.fn_maxD(_Y,_M);
               var _i =  0;
               if(picker){
-                  if(_Y == _max[0] && _M == _max[1]){
-                    _D = _max[2];
+                  if(_Y == _max2[0] && _M == _max2[1]){
+                    _D = _max2[2];
                   }
-                  if(_Y == _min[0] && _M == _min[1]){
-                    _i = _min[2]-1;
+                  if(_Y == _min2[0] && _M == _min2[1]){
+                    _i = _min2[2]-1;
                   }
               }else{
-                 _i = _min[2]-1;
+                 _i = _min2[2]-1;
               }
               var _day = ['初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','二一','二二','二三','二四','二五','二六','二七','二八','二九','三十'];
               data = [];
@@ -385,7 +384,8 @@
               picker.scrollColumn(0,i);
               picker.selectedIndex[0] =i;
               var str = JSON.stringify(picker.data);
-              _selectedVal = get_selectedVal(picker.selectedIndex,str);
+              selectedVal = _selectedVal = get_selectedVal(picker.selectedIndex,str);
+              // 全家变量 保存选中值
               var _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
               // 替换列数据
               picker.refillColumn(1, _data2);
@@ -400,7 +400,8 @@
                   picker.scrollColumn(1,j);
                   picker.selectedIndex[1] = j;
                   var str = JSON.stringify(picker.data);
-                  _selectedVal = get_selectedVal(picker.selectedIndex,str);
+                  // 全家变量 保存选中值
+                  selectedVal = _selectedVal = get_selectedVal(picker.selectedIndex,str);
                   var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
                   // 替换列数据
                   picker.refillColumn(2, _data3);
@@ -417,6 +418,8 @@
                   picker.selectedIndex[2] = k;
                 }
               }
+              // 全家变量 保存选中值
+              selectedVal = get_selectedVal(picker.selectedIndex,str);
           }
         }
         picker.on('picker.change',function () {
