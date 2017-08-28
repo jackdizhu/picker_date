@@ -33,10 +33,11 @@
   <script src="../dist/calendar.js"></script>
   <script src="../dist/picker_date.js"></script>
 
-  <script src="../src/date/picker_date.js"></script>
+  <!-- <script src="../src/date/picker_date.js"></script> -->
   <script type="text/javascript">
     pickerDate({
       _min: [1901,2,2], //最小日期
+      val: [1905,5,5],
       _max: [1911,11,11], // 最大日期
       el: 'pickerDateId', // DOM ID
       /*  // 回调参数
@@ -57,6 +58,7 @@
     });
     pickerDate({
       _min: [1901,2,1],
+      val: [1905,5,5],
       _max: [1910,9,9],
       el: 'pickerDateId2',
       callback: function (_d){

@@ -47,6 +47,7 @@
         var _opt = {
           _min: opt._min || [1900,1,31],
           _max: opt._max || [1909,11,11],
+          val: opt.val || null,
           el: opt.el || 'packerDateId',
           submit: opt.callback || null
         };
@@ -307,6 +308,14 @@
         var _el = document.getElementById(_opt.el);
         _el.addEventListener('click', function () {
           picker.show();
+          if(_opt.val){
+            // 异步操作 防止报错
+            setTimeout(function () {
+                fn_setPickerVal(_opt.val);
+                // 只执行一次
+                _opt.val = null;
+            },0);
+          }
         });
 
         var selectedVal = _min;
