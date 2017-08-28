@@ -240,7 +240,6 @@
                 };
                 data.push(__obj);
               }
-              console.log(_Y);
               return data;
             },
             fn_D: function (_Y,_M) {
@@ -367,6 +366,7 @@
         }
         // 点击阳历 农历切换 触发
         function fn_change2(_this,fn) {
+
             // 获取选中val 值
             var str = JSON.stringify(_this.data);
             var _selectedVal = get_selectedVal(_this.selectedIndex,str);
@@ -378,47 +378,57 @@
         function fn_setPickerVal(_arr,isLunar){
           var _selectedVal;
           var _data = picker.data;
+          var str,_data2;
           for (var i = 0; i < _data[0].length; i++) {
             var e1 = _data[0][i];
             if(e1.value == _arr[0]){
               picker.scrollColumn(0,i);
               picker.selectedIndex[0] =i;
-              var str = JSON.stringify(picker.data);
+              str = JSON.stringify(picker.data);
               selectedVal = _selectedVal = get_selectedVal(picker.selectedIndex,str);
-              // 全家变量 保存选中值
-              var _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
+              // 全局变量 保存选中值
+              _data2 = isLunarDate ? _D2.fn_M(_selectedVal[0]) : _D.fn_M(_selectedVal[0]);
               // 替换列数据
               picker.refillColumn(1, _data2);
               set_M();
+              // 找到对应数据 停止循环
+              break;
             }
           }
           function set_M(){
               var _data = picker.data;
+              var str,_data3;
               for (var j = 0; j < _data[1].length; j++) {
                 var e2 = _data[1][j];
                 if(e2.value == _arr[1]){
                   picker.scrollColumn(1,j);
                   picker.selectedIndex[1] = j;
-                  var str = JSON.stringify(picker.data);
-                  // 全家变量 保存选中值
+                  str = JSON.stringify(picker.data);
+                  // 全局变量 保存选中值
                   selectedVal = _selectedVal = get_selectedVal(picker.selectedIndex,str);
-                  var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
+                  _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
                   // 替换列数据
                   picker.refillColumn(2, _data3);
                   set_D();
+                  // 找到对应数据 停止循环
+                  break;
                 }
               }
           }
           function set_D(){
               var _data = picker.data;
+              var str = JSON.stringify(picker.data);
+              var e3;
               for (var k = 0; k < _data[2].length; k++) {
-                var e3 = _data[2][k];
+                e3 = _data[2][k];
                 if(e3.value == _arr[2]){
                   picker.scrollColumn(2,k);
                   picker.selectedIndex[2] = k;
+                  // 找到对应数据 停止循环
+                  break;
                 }
               }
-              // 全家变量 保存选中值
+              // 全局变量 保存选中值
               selectedVal = get_selectedVal(picker.selectedIndex,str);
           }
         }
