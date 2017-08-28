@@ -5,7 +5,8 @@ calendar js 1900-2100 农历数据
 
 packerDate({
   _min: [1901,1,1], //最小日期
-  _max: [1911,11,11], // 最大日期
+  val: [2000,1,1],
+  _max: [2100,12,31], // 最大日期
   el: 'packerDateId', // DOM ID
   /*  // 回调参数
   c:{
