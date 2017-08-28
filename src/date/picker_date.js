@@ -144,7 +144,6 @@
               var _D = this.fn_maxD(_Y,_M);
               var _i =  0;
               if(picker){
-                  console.log(_M,_max[1]);
                   if(_Y == _max[0] && _M == _max[1]){
                     _D = _max[2];
                   }
@@ -338,9 +337,10 @@
               if(_selectedVal[1] > picker.data[1].length){
                   picker.scrollColumn(1, picker.data[1].length - 1);
                   picker.selectedIndex[1] = picker.data[1].length - 1;
-                  // 重新获取 选中值
-                  _selectedVal = get_selectedVal(_this.selectedIndex,str);
               }
+              // 重新获取 选中值
+              str = JSON.stringify(picker.data);
+              _selectedVal = get_selectedVal(_this.selectedIndex,str);
               // picker.scrollColumn(1, 0);
 
               var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
