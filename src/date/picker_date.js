@@ -18,10 +18,10 @@
       toSolar: function (y,m,d){
         var _m = this.leapMonth(y);
         var isLeapMonth = false; // 是否闰月
-        if(_m+1 == m){
+        if(_m && ((_m + 1) == m)){
             isLeapMonth = true;
         }
-        if(_m && m > _m){
+        if(_m && (m > _m)){
           --m;
         }
         var _d = lunar.lunar2solar(y,m,d,isLeapMonth);
@@ -476,7 +476,6 @@
         });
         // 点击确定时触发
         picker.on('picker.valuechange',function () {
-
             var _d = {};
             var __;
             if(isLunarDate){
