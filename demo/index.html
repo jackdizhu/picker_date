@@ -31,15 +31,15 @@
   <div id="pickerDateId2">选择日期</div>
   <script src="../dist/picker.min.js"></script>
   <script src="../dist/calendar.js"></script>
-  <!-- <script src="../dist/picker_date.js"></script> -->
+  <script src="../dist/picker_date.js"></script>
 
   <!-- <script src="../src/date/calendar.js"></script> -->
-  <script src="../src/date/picker_date.js"></script>
+  <!-- <script src="../src/date/picker_date.js"></script> -->
   <script type="text/javascript">
 
     pickerDate({
       _min: [1900,3,1,0], //最小日期
-      val: [2000,1,1,0],
+      // val: [2000,1,1,0],
       _max: [2100,12,31,12], // 最大日期
       el: 'pickerDateId', // DOM ID
       /*  // 回调参数
@@ -72,7 +72,7 @@
     var _max = [_T.getFullYear(),_T.getMonth()+1,_T.getDate(),_T.getHours()];
     pickerDate({
       _min: [1901,5,5,0],
-      val: [1905,8,8,1],
+      // val: [1905,8,8,1],
       // _max: _max,
       _max: [1906,9,9,11],
       // _max: [1906,2,14,11],
@@ -89,6 +89,8 @@
         console.log(_d);
       }
     });
+
+    console.log(8%4 === 0);
   </script>
 </body>
 </html>

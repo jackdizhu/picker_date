@@ -314,7 +314,7 @@
           }
           // 增加未知 选项
           _data4 = {
-            text: '未知',
+            text: '不清楚',
             value: -1
           };
           data4.push(_data4);

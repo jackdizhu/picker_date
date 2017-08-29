@@ -98,6 +98,12 @@ export default class Picker extends EventEmitter {
   _createWheel(wheelEl, i) {
     this.wheels[i] = new BScroll(wheelEl[i], {
       wheel: true,
+      // 当快速在屏幕上滑动一段距离的时候，会根据滑动的距离和时间计算出动量，并生成滚动动画。设置为 true 则开启动画。
+      momentum: true,
+      // 只有在屏幕上快速滑动的时间小于 momentumLimitTime，才能开启 momentum 动画
+      momentumLimitTime: 300,
+      // 设置 momentum 动画的动画时长
+      swipeTime: 500,
       selectedIndex: this.selectedIndex[i]
     });
     ((index) => {
