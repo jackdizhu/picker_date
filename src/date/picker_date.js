@@ -45,8 +45,8 @@
     };
     var pickerDate = function (opt){
         var _opt = {
-          _min: opt._min || [1900,1,31],
-          _max: opt._max || [1909,11,11],
+          _min: opt._min || [1900,1,31,0],
+          _max: opt._max || [1909,11,11,23],
           val: opt.val || null,
           el: opt.el || 'packerDateId',
           submit: opt.callback || null
@@ -323,7 +323,7 @@
                 picker.refillColumn(0, data1);
                 picker.refillColumn(1, data2);
                 picker.refillColumn(2, data3);
-                picker.refillColumn(4, data4);
+                picker.refillColumn(3, data4);
             }
             if(fn){
               fn();
@@ -358,8 +358,42 @@
             _v[0] = _data[0][selectedI[0]].value;
             _v[1] = _data[1][selectedI[1]].value;
             _v[2] = _data[2][selectedI[2]].value;
+            _v[3] = _data[3][selectedI[3]].value;
 
             return _v;
+        }
+        // 更新小时数据
+        function fn_change_upT() {
+          var _this = picker;
+          var str = JSON.stringify(_this.data);
+          var _selectedVal = get_selectedVal(_this.selectedIndex,str);
+          var _tmax = 24;
+          if(isLunarDate){
+            // 农历
+            if(_selectedVal[0] == _max2[0] && _selectedVal[1] == _max2[1] && _selectedVal[2] == _max2[2]){
+                _tmax = _max[3]+1;
+            }
+          }else{
+            // 阳历
+            if(_selectedVal[0] == _max[0] && _selectedVal[1] == _max[1] && _selectedVal[2] == _max[2]){
+                _tmax = _max[3]+1;
+            }
+          }
+
+          // 小时数据
+          data4 = fn_getTArr(_tmax);
+
+          if(picker){
+              picker.refillColumn(3, data4);
+              // 如果上次选中值 大于这次生成的数据 则选中末尾项
+              if(_selectedVal[3]>data4.length-1){
+                picker.scrollColumn(3,data4.length-1);
+              }
+
+              str = JSON.stringify(_this.data);
+              _selectedVal = get_selectedVal(_this.selectedIndex,str);
+              selectedVal = _selectedVal;
+          }
         }
         // 滑动列数据触发
         function fn_change(_this) {
@@ -390,6 +424,7 @@
                   picker.scrollColumn(2, picker.data[2].length - 1);
                   picker.selectedIndex[2] = picker.data[2].length - 1;
               }
+
               // picker.scrollColumn(2, 0);
             }else if(selectedVal[1] != _selectedVal[1]){
                 var _data3 = isLunarDate ? _D2.fn_D(_selectedVal[0],_selectedVal[1]) : _D.fn_D(_selectedVal[0],_selectedVal[1]);
@@ -402,6 +437,8 @@
                 }
                 // picker.scrollColumn(2, 0);
             }
+            // 更新小时数据
+            fn_change_upT();
 
             selectedVal = _selectedVal;
         }
