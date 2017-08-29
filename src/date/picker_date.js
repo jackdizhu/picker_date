@@ -402,8 +402,9 @@
               // 如果上次选中值 大于这次生成的数据 则选中末尾项
               if(_selectedVal[3]>data4.length-1){
                 picker.scrollColumn(3,data4.length-1);
+                // 保持选中值到 picker
+                picker.selectedIndex[3] = data4.length-1;
               }
-
               str = JSON.stringify(_this.data);
               _selectedVal = get_selectedVal(_this.selectedIndex,str);
               selectedVal = _selectedVal;
@@ -452,7 +453,9 @@
                 // picker.scrollColumn(2, 0);
             }
             // 更新小时数据
-            fn_change_upT();
+            setTimeout(function () {
+                fn_change_upT();
+            },0);
 
             selectedVal = _selectedVal;
         }
