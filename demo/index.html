@@ -31,10 +31,10 @@
   <div id="pickerDateId2">选择日期</div>
   <script src="../dist/picker.min.js"></script>
   <script src="../dist/calendar.js"></script>
-  <script src="../dist/picker_date.js"></script>
+  <!-- <script src="../dist/picker_date.js"></script> -->
 
   <!-- <script src="../src/date/calendar.js"></script> -->
-  <!-- <script src="../src/date/picker_date.js"></script> -->
+  <script src="../src/date/picker_date.js"></script>
   <script type="text/javascript">
     pickerDate({
       _min: [1900,3,1], //最小日期
@@ -70,7 +70,7 @@
     pickerDate({
       _min: [1901,5,5],
       val: [1905,8,8],
-      _max: [1910,9,9],
+      _max: [1906,9,9],
       el: 'pickerDateId2',
       callback: function (_d){
         var str = '农历:' + _d.c.value.join('-');
