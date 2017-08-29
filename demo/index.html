@@ -31,13 +31,12 @@
   <div id="pickerDateId2">选择日期</div>
   <script src="../dist/picker.min.js"></script>
   <script src="../dist/calendar.js"></script>
-  <!-- <script src="../dist/picker_date.js"></script> -->
+  <script src="../dist/picker_date.js"></script>
 
   <!-- <script src="../src/date/calendar.js"></script> -->
-  <script src="../src/date/picker_date.js"></script>
+  <!-- <script src="../src/date/picker_date.js"></script> -->
   <script type="text/javascript">
-    var _T = new Date();
-    var _max = [_T.getFullYear(),_T.getMonth()+1,_T.getDate(),_T.getHours()];
+
     pickerDate({
       _min: [1900,3,1,0], //最小日期
       val: [2000,1,1,0],
@@ -48,11 +47,11 @@
             leapMonth:0, // 闰月 月份 没有 为0 如果有 月份最大 13
             name:"农历",
             rawData: true, // true 表示 农历是选中值 阳历是 计算值 [防止计算错误 校验字段]
-            value:[1910,10,9]
+            value:[1910,10,9,0] // 小时从0 开始 未知 返回 -1
         },
         l:{
             name:"阳历",
-            value:[1910,11,10]
+            value:[1910,11,10,0]
         }
       }
       */
@@ -69,12 +68,14 @@
         console.log(_d);
       }
     });
+    var _T = new Date();
+    var _max = [_T.getFullYear(),_T.getMonth()+1,_T.getDate(),_T.getHours()];
     pickerDate({
       _min: [1901,5,5,0],
       val: [1905,8,8,1],
-      // _max: _max,
+      _max: _max,
       // _max: [1906,9,9,11],
-      _max: [1906,2,14,11],
+      // _max: [1906,2,14,11],
       el: 'pickerDateId2',
       callback: function (_d){
         var str = '农历:' + _d.c.value.join('-');

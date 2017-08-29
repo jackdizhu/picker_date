@@ -312,6 +312,13 @@
               };
               data4.push(_data4);
           }
+          // 增加未知 选项
+          _data4 = {
+            text: '未知',
+            value: -1
+          };
+          data4.push(_data4);
+
           return data4;
         }
         // 重新生成数据
