@@ -550,11 +550,13 @@
           if(isLunarDate){
             // 农历转 阳历
             __d = _Lunar.toSolar(_selectedVal[0],_selectedVal[1],_selectedVal[2]);
+            __d[3] = _selectedVal[3];
             // 选中值
             // fn_setPickerVal(__d,true);
           }else{
             // 阳历 转农历
             __d = _Lunar.toLunar(_selectedVal[0],_selectedVal[1],_selectedVal[2]);
+            __d[3] = _selectedVal[3];
             // 选中值
             // fn_setPickerVal(__d);
           }
@@ -565,6 +567,7 @@
           }else{
             this.cancelEl.innerHTML = '选择农历';
           }
+          console.log(__d);
           // 更新列
           fn_change2(this,function(){
             fn_setPickerVal(__d,isLunarDate);
