@@ -327,7 +327,10 @@
                 picker.refillColumn(0, data1);
                 picker.refillColumn(1, data2);
                 picker.refillColumn(2, data3);
-                picker.refillColumn(3, data4);
+                // 更换小时数据  异步延时操作
+                setTimeout(function () {
+                    fn_change_upT();
+                },0);
             }
             if(fn){
               fn();
@@ -567,7 +570,6 @@
           }else{
             this.cancelEl.innerHTML = '选择农历';
           }
-          console.log(__d);
           // 更新列
           fn_change2(this,function(){
             fn_setPickerVal(__d,isLunarDate);
