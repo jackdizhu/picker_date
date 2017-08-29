@@ -60,7 +60,6 @@
         var _max2 = _Lunar.toLunar(_opt._max[0],_opt._max[1],_opt._max[2]);
         var el = _opt.el;
 
-
         // 是否农历
         var isLunarDate = 0;
         // 年
@@ -222,9 +221,16 @@
             },
             fn_M: function (_Y) {
               var _i = 0,_M = 12;
+              var _is_max2 = false;
+              // 获取闰月
+              var _is = _Lunar.leapMonth(_Y);
               if(picker){
                   if(_Y == _max2[0]){
                     _M = _max2[1];
+                    // 处理 最大值是农历闰年 最大月份 生成错误问题 _max2[1] 数据 跟 _M++ 逻辑重复
+                    if(_is && _M > _is){
+                      _is_max2 = true;
+                    }
                   }
                   if(_Y == _min2[0]){
                     _i = _min2[1]-1;
@@ -232,13 +238,11 @@
               }else{
                 _i = _min2[1]-1;
               }
-              // 获取闰月
-              var _is = _Lunar.leapMonth(_Y);
               // 有闰月 总数 13月
-              if(_is){
+              if(_is && !_is_max2 && _M > _is){
                 _M++;
               }
-              var _day = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+              var _day = ['正','二','三','四','五','六','七','八','九','十','十一','十二'];
               var data = [];
               var __obj = {},j = _i,k;
               for (var i = _i; i < _M; i++) {
