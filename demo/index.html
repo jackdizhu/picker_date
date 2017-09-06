@@ -14,7 +14,8 @@
     text-align: center;
   }
   #pickerDateId2 ,
-  #pickerDateId {
+  #pickerDateId ,
+  #city {
     width: 80%;
     height: 50px;
     border: 1px solid #ccc;
@@ -29,12 +30,17 @@
   <h3>Picker</h3>
   <div id="pickerDateId">选择日期</div>
   <div id="pickerDateId2">选择日期</div>
+
+  <div id="city">选择省市</div>
   <script src="../dist/picker.min.js"></script>
   <script src="../dist/calendar.js"></script>
-  <script src="../dist/picker_date.js"></script>
+  <!-- <script src="../dist/picker_date.js"></script> -->
 
   <!-- <script src="../src/date/calendar.js"></script> -->
-  <!-- <script src="../src/date/picker_date.js"></script> -->
+  <script src="../src/date/picker_date.js"></script>
+
+  <script src="../src/city/city.js"></script>
+  <script src="../src/city/index.js"></script>
   <script type="text/javascript">
 
     pickerDate({
@@ -42,6 +48,7 @@
       // val: [2000,1,1,0],
       _max: [2100,12,31,12], // 最大日期
       el: 'pickerDateId', // DOM ID
+      type: 'pickerDate',
       /*  // 回调参数
       c:{
             leapMonth:0, // 闰月 月份 没有 为0 如果有 月份最大 13

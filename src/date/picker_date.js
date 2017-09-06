@@ -348,6 +348,8 @@
         var picker = new Picker({
           data: [data1, data2, data3, data4],
           selectedIndex: [0, 0, 0, 0],
+          cancelClass: 'check-hook',
+          cancelText: '选择农历',
           title: '选择日期'
         });
 
@@ -576,9 +578,9 @@
 
           isLunarDate = !isLunarDate;
           if(isLunarDate){
-            this.cancelEl.innerHTML = '选择阳历';
+            this.checkEl.innerHTML = '选择阳历';
           }else{
-            this.cancelEl.innerHTML = '选择农历';
+            this.checkEl.innerHTML = '选择农历';
           }
           // 更新列
           fn_change2(this,function(){

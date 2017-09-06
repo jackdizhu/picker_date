@@ -26,6 +26,8 @@ export default class Picker extends EventEmitter {
 
     this.data = this.options.data;
     this.pickerEl = createDom(pickerTemplate({
+      cancelClass: this.options.cancelClass || 'cancel-hook',
+      cancelText: this.options.cancelText || '取消',
       data: this.data,
       title: this.options.title
     }));
@@ -37,6 +39,7 @@ export default class Picker extends EventEmitter {
     this.panelEl = this.pickerEl.getElementsByClassName('panel-hook')[0];
     this.confirmEl = this.pickerEl.getElementsByClassName('confirm-hook')[0];
     this.cancelEl = this.pickerEl.getElementsByClassName('cancel-hook')[0];
+    this.checkEl = this.pickerEl.getElementsByClassName('check-hook')[0];
     this.scrollEl = this.pickerEl.getElementsByClassName('wheel-scroll-hook');
 
     this._init();
@@ -86,7 +89,11 @@ export default class Picker extends EventEmitter {
       }
     });
 
-    addEvent(this.cancelEl, 'click', () => {
+    this.cancelEl && addEvent(this.cancelEl, 'click', () => {
+      this.hide();
+      this.trigger('picker.cancel');
+    });
+    this.checkEl && addEvent(this.checkEl, 'click', () => {
       // this.hide();
       this.trigger('picker.cancel');
     });
